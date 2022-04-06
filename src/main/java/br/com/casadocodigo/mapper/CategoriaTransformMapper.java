@@ -10,4 +10,5 @@ public abstract class CategoriaTransformMapper {
     public abstract CategoriaDTO toDTO(Categoria categoria);
 
     public abstract Categoria toEntity(CategoriaDTO dto);
+
 }
