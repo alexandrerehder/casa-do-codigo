@@ -3,6 +3,8 @@ package br.com.casadocodigo.service;
 import br.com.casadocodigo.domain.Livro;
 import br.com.casadocodigo.dto.LivroDTO;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
+import br.com.casadocodigo.repository.AutorRepository;
+import br.com.casadocodigo.repository.CategoriaRepository;
 import br.com.casadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,12 @@ public class LivroService {
 
     @Autowired
     private LivroRepository livroRepository;
+
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private AutorRepository autorRepository;
 
     @Autowired
     LivroTransformMapper mapper;

@@ -14,4 +14,5 @@ public abstract class LivroTransformMapper {
     public abstract Livro toEntity(LivroDTO dto);
 
     public abstract List<LivroDTO> toListDTO(List<Livro> all);
+
 }
