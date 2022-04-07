@@ -21,6 +21,6 @@ public class LivroDTO implements Serializable {
     private Integer isbn;
     private LocalDate dataLancamento;
 
-    private AutorDTO get;
+    private AutorDTO autor;
     private CategoriaDTO categoria;
 }
