@@ -1,11 +1,11 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Livro;
-import br.com.casadocodigo.dto.AutorDTO;
 import br.com.casadocodigo.dto.LivroDTO;
+import br.com.casadocodigo.dto.LivroDetalhesDTO;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
-import br.com.casadocodigo.repository.AutorRepository;
-import br.com.casadocodigo.repository.CategoriaRepository;
+import br.com.casadocodigo.nativeQueryProjection.LivroDetalhes;
+import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,10 @@ public class LivroService {
     private LivroRepository livroRepository;
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
-
-    @Autowired
-    private AutorRepository autorRepository;
-
-    @Autowired
     LivroTransformMapper mapper;
 
-    public List<LivroDTO> listarTodos() {
-        return mapper.toListDTO(livroRepository.findAll());
+    public List<LivroResumido> listarTodos() {
+        return livroRepository.findAllLivros();
     }
 
     public LivroDTO criarLivro(LivroDTO dto) {
@@ -39,7 +33,7 @@ public class LivroService {
         LocalDate today = LocalDate.now();
 
         Livro livroValidado = null;
-        if(today.isBefore(livro.getDataLancamento())) {
+        if(today.isBefore(livro.getLancamento())) {
             livroValidado = livroRepository.save(livro);
         } else {
         }
@@ -48,6 +42,12 @@ public class LivroService {
 
     public LivroDTO buscarLivroPorId(UUID id) {
         Optional<Livro> livro = livroRepository.findById(id);
-        return livro.isPresent() ? mapper.toDTO(livro.get()) : new LivroDTO();
+        return livro.isPresent() ? mapper.toDTO(livro.get()) : null;
+    }
+
+    public LivroDetalhesDTO buscarDetalhesLivroPorId(UUID id) {
+        Optional<LivroDetalhes> livro = livroRepository.findDetalhesLivro(id);
+        return livro.isPresent() ? mapper.toDetalhesDTO(livro.get()) : null;
     }
 }
+

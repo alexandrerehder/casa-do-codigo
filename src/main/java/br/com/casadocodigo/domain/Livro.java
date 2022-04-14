@@ -1,5 +1,6 @@
 package br.com.casadocodigo.domain;
 
+import br.com.casadocodigo.shared.LocalDateAttributeConverter;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,15 +27,17 @@ public class Livro implements Serializable {
     @NotNull @NotBlank @Size(max=500)
     private String resumo;
     @NotNull @NotBlank
+    private String descricao;
+    @NotNull @NotBlank
     private String sumario;
     @NotNull @Min(value = 20)
     private BigDecimal preco;
     @NotNull @Min(value = 100)
     private Integer paginas;
-    @Column(unique=true) @NotNull
-    private Integer isbn;
-    @NotNull
-    private LocalDate dataLancamento;
+    @Column(unique=true) @NotNull @NotBlank
+    private String isbn;
+    @Convert(converter = LocalDateAttributeConverter.class)
+    private LocalDate lancamento;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private Categoria categoria;

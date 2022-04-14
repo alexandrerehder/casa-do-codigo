@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 
-import static br.com.casadocodigo.exceptionhandler.EmailValidation.pattern;
+import static br.com.casadocodigo.shared.EmailValidation.pattern;
 
 @Service
 public class AutorService {

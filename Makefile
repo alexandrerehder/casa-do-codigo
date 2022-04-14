@@ -8,7 +8,7 @@ up:
 .PHONY: down
 
 down:
-	docker-compose down --remove-orphans &&  sudo docker image rm 1ee973e26c65
+	docker-compose down --remove-orphans &&  sudo docker image rm 1ee973e26c65 --force
 
 .PHONY: logs
 

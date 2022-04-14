@@ -1,4 +1,4 @@
-package br.com.casadocodigo.exceptionhandler;
+package br.com.casadocodigo.shared;
 
 import java.util.regex.Pattern;
 

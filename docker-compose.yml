@@ -3,7 +3,7 @@ version: "3"
 services:
   postgres_db:
     image: postgres
-    container_name: wba_db
+    container_name: casadocodigo
     restart: always
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
