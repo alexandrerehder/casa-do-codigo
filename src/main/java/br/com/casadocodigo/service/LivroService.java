@@ -46,7 +46,7 @@ public class LivroService {
     }
 
     public LivroDetalhesDTO buscarDetalhesLivroPorId(UUID id) {
-        Optional<LivroDetalhes> livro = livroRepository.findDetalhesLivro(id);
+        Optional<Livro> livro = livroRepository.findById(id);
         return livro.isPresent() ? mapper.toDetalhesDTO(livro.get()) : null;
     }
 }

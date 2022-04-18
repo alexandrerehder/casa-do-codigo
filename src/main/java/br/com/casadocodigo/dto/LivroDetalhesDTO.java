@@ -19,5 +19,5 @@ public class LivroDetalhesDTO implements Serializable {
     private Integer paginas;
     private String isbn;
     private LocalDate lancamento;
-    private AutorDTO autor;
+    private AutorDetalhesDTO autor;
 }

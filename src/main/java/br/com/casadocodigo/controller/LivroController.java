@@ -31,7 +31,7 @@ public class LivroController {
     @GetMapping(value = "/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> buscarLivro(@PathVariable("id") UUID id) {
         LivroDTO dto = livroService.buscarLivroPorId(id);
-        if(dto.getId() == null) {
+        if(dto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(dto, HttpStatus.OK);
@@ -54,6 +54,4 @@ public class LivroController {
         }
         return new ResponseEntity<>(livro, HttpStatus.OK);
     }
-
-
 }

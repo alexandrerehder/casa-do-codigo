@@ -17,6 +17,10 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
     @Query(nativeQuery = true, value = "SELECT Cast(id as varchar) id, livro.titulo FROM Livro")
     List<LivroResumido> findAllLivros();
 
-    @Query(nativeQuery = true, value = "SELECT livro.titulo, livro.resumo, livro.preco, livro.descricao, livro.sumario, livro.paginas, livro.isbn, livro.lancamento FROM Livro WHERE id = :id")
+    @Query(nativeQuery = true, value =
+            "SELECT l.titulo, l.resumo, l.descricao, l.preco, l.sumario, l.paginas, l.isbn, l.lancamento, a.nome " +
+                    "FROM Livro l " +
+                    "INNER JOIN autor a ON l.autor_id = a.id ")
     Optional<LivroDetalhes> findDetalhesLivro(UUID id);
 }
+
