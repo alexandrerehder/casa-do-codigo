@@ -21,7 +21,7 @@ public class Autor implements Serializable {
     private UUID id;
     @NotNull @NotBlank
     private String nome;
-    @Column(unique=true)
+    @Column(unique=true) @NotNull @NotBlank
     private String email;
     @NotNull @NotBlank @Size(max=400)
     private String descricao;

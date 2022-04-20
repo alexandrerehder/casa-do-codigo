@@ -17,6 +17,6 @@ public class Pais implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @Column(unique=true) @NotNull @NotBlank
+    @Column(unique=true) @NotNull @NotBlank(message = "Please enter pais name")
     private String pais;
 }

@@ -17,7 +17,7 @@ public class Estado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    @NotNull @NotBlank
+    @NotNull @NotBlank(message = "Please enter estado name")
     private String estado;
 
     @ManyToOne(cascade = CascadeType.MERGE)
