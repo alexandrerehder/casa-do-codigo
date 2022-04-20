@@ -4,7 +4,6 @@ import br.com.casadocodigo.domain.Livro;
 import br.com.casadocodigo.dto.LivroDTO;
 import br.com.casadocodigo.dto.LivroDetalhesDTO;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
-import br.com.casadocodigo.nativeQueryProjection.LivroDetalhes;
 import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
