@@ -1,6 +1,7 @@
 package br.com.casadocodigo.controller;
 
 import br.com.casadocodigo.dto.ClienteDTO;
+import br.com.casadocodigo.dto.ClienteIdDTO;
 import br.com.casadocodigo.service.ClienteService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,11 @@ public class ClienteController {
 
     @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> cadastrarCliente(@RequestBody @Valid ClienteDTO dto) {
-        ClienteDTO cliente = clienteService.criarCliente(dto);
-        if(cliente == null) {
+        ClienteIdDTO id = clienteService.criarCliente(dto);
+        if(id == null) {
             return new ResponseEntity<>(gson.toJson("Problemas de validação"), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(cliente, HttpStatus.OK);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
