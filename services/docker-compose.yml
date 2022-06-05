@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: casadocodigo
+    restart: always
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
