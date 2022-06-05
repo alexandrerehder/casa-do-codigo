@@ -1,7 +1,7 @@
 package br.com.casadocodigo.controller;
 
-import br.com.casadocodigo.dto.ClienteDTO;
-import br.com.casadocodigo.dto.ClienteIdDTO;
+import br.com.commons.dto.ClienteDTO;
+import br.com.commons.dto.ClienteIdDTO;
 import br.com.casadocodigo.service.ClienteService;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;

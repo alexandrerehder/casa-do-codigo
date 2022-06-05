@@ -9,7 +9,8 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Log4j2
 @Component
@@ -18,7 +19,7 @@ public class AutorListener {
 	@Autowired
 	private AutorService AutorService;
 
-	@RabbitListener(queues = "${casadocodigo.fila.autor.rpc.queue}")
+	@RabbitListener(queues = "${thanos.fila.autor.rpc.queue}")
 	public QueueResponseDTO processaEnvioAutor(QueueRequestDTO request) throws Exception {
 		QueueResponseDTO response = new QueueResponseDTO();
 
@@ -26,43 +27,60 @@ public class AutorListener {
 
 			case GET:
 				try {
-					AutorDTO id = (AutorDTO) request.getObjeto();
-					log.info("Objeto recebido:" + "\n" + id);
+					UUID id = (UUID) request.getObjeto();
+					log.info("ID recebido:" + "\n" + id);
 
-					List<AutorDTO> listaDeAutores = AutorService.buscarAutorPorId(id);
+					AutorDTO autorPorId = AutorService.buscarAutorPorId(id);
 
-					log.info("Quantidade de autores encontrados:" + listaDeAutores.size());
+					if(autorPorId.getId() == null) {
+						log.info("Autor não encontrado");
 
-					response.setMensagemRetorno("Autores encontrados");
-					response.setErro(false);
-					response.setObjeto(listaDeAutores);
+						response.setMensagemRetorno("Autor não encontrado");
+						response.setErro(false);
+						response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+					}else {
+						log.info("Autor referente ao ID:" + "\n" + autorPorId);
+
+						response.setMensagemRetorno("Autor encontrado");
+						response.setErro(false);
+						response.setObjeto(autorPorId);
+					}
 
 				}catch (Exception e) {
 					response.setMensagemRetorno(e.getMessage());
 					response.setErro(true);
 					response.setObjeto(e);
-					log.error("Nenhuma Operação encontrada: ", response);
+					log.error("Falha ao buscar autor: ", response);
 				}
 
 				break;
 
 			case INSERT:
 				try {
-					AutorDTO Autor = (AutorDTO) request.getObjeto();
-					log.info("Objecto recebido:" + "\n" + Autor);
+					AutorDTO autor = (AutorDTO) request.getObjeto();
+					log.info("Objeto recebido:" + "\n" + autor);
 
-					AutorDTO AutorCadastrada = AutorService.save(Autor);
+					AutorDTO autorCadastrado = AutorService.criarAutor(autor);
 
-					log.info("Operação cadastrada:" + "\n" + AutorCadastrada);
+					if(autorCadastrado == null) {
+						log.info("Listener: Informações incorretas");
 
-					response.setMensagemRetorno("Operação cadastrada com sucesso");
-					response.setErro(false);
-					response.setObjeto(AutorCadastrada);
+						response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
+						response.setErro(false);
+						response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+					}else {
+						log.info("Autor cadastrado:" + "\n" + autorCadastrado);
+
+						response.setMensagemRetorno("Autor cadastrado com sucesso");
+						response.setErro(false);
+						response.setObjeto(autorCadastrado);
+					}
+
 				}catch (Exception e) {
 					response.setMensagemRetorno(e.getMessage());
 					response.setErro(true);
 					response.setObjeto(e);
-					log.error("Falha ao cadastrar operação: ", response);
+					log.error("Falha ao cadastrar autor: ", response);
 				}
 
 				break;

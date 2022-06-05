@@ -1,7 +1,9 @@
 package br.com.casadocodigo.queue.listener;
 
-import br.com.casadocodigo.service.CategoriaService;
-import br.com.commons.dto.CategoriaDTO;
+import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
+import br.com.casadocodigo.service.LivroService;
+import br.com.commons.dto.LivroDTO;
+import br.com.commons.dto.LivroDetalhesDTO;
 import br.com.commons.dto.QueueRequestDTO;
 import br.com.commons.dto.QueueResponseDTO;
 import lombok.extern.log4j.Log4j2;
@@ -10,77 +12,132 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Log4j2
 @Component
-public class CategoriaListener {
+public class LivroListener {
 
     @Autowired
-    private CategoriaService categoriaService;
+    private LivroService livroService;
 
-    @RabbitListener(queues = "${thanos.fila.categoria.rpc.queue}")
-    public QueueResponseDTO processaEnvioAutor(QueueRequestDTO request) throws Exception {
+    @RabbitListener(queues = "${thanos.fila.livro.rpc.queue}")
+    public QueueResponseDTO processaEnvioLivro(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
 
         switch (request.getCrudMethod()) {
+
+            case LIST:
+                try {
+                    List<LivroResumido> listaDeLivros = livroService.listarTodos();
+                    if(listaDeLivros == null) {
+                        response.setMensagemRetorno("Livros não encontrados");
+                        response.setErro(false);
+                        response.setObjeto("Empty");
+                    }else {
+                        log.info("Quantidade de livros encontrados: " + listaDeLivros.size());
+
+                        response.setMensagemRetorno("Livros encontrados");
+                        response.setErro(false);
+                        response.setObjeto(listaDeLivros);
+                    }
+
+                }catch (Exception e) {
+                    response.setMensagemRetorno(e.getMessage());
+                    response.setErro(true);
+                    response.setObjeto(e);
+                    log.error("Nenhum livro encontrado: ", response);
+                }
+
+                break;
 
             case GET:
                 try {
                     UUID id = (UUID) request.getObjeto();
                     log.info("ID recebido:" + "\n" + id);
 
-                    CategoriaDTO categoriaPorId = categoriaService.buscarCategoriaPorId(id);
+                    LivroDTO LivroPorId = livroService.buscarLivroPorId(id);
 
-                    if(categoriaPorId.getId() == null) {
-                        log.info("Categoria não encontrada");
+                    if(LivroPorId.getId() == null) {
+                        log.info("Livro não encontrado");
 
-                        response.setMensagemRetorno("Categoria não encontrada");
+                        response.setMensagemRetorno("Livro não encontrado");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
                     }else {
-                        log.info("Autor referente ao ID:" + "\n" + categoriaPorId);
+                        log.info("Livro referente ao ID:" + "\n" + LivroPorId);
 
-                        response.setMensagemRetorno("Categoria encontrada");
+                        response.setMensagemRetorno("Livro encontrado");
                         response.setErro(false);
-                        response.setObjeto(categoriaPorId);
+                        response.setObjeto(LivroPorId);
                     }
 
                 }catch (Exception e) {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao buscar autor: ", response);
+                    log.error("Falha ao buscar Livro: ", response);
+                }
+
+                break;
+
+            case DETAIL:
+                try {
+                    UUID id = (UUID) request.getObjeto();
+                    log.info("ID recebido:" + "\n" + id);
+
+                    LivroDetalhesDTO detalhesLivroPorId = livroService.buscarDetalhesLivroPorId(id);
+
+                    if(detalhesLivroPorId.getAutor() == null) {
+                        log.info("Livro não encontrado");
+
+                        response.setMensagemRetorno("Livro não encontrado");
+                        response.setErro(false);
+                        response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                    }else {
+                        log.info("Livro referente ao ID:" + "\n" + detalhesLivroPorId);
+
+                        response.setMensagemRetorno("Livro encontrado");
+                        response.setErro(false);
+                        response.setObjeto(detalhesLivroPorId);
+                    }
+
+                }catch (Exception e) {
+                    response.setMensagemRetorno(e.getMessage());
+                    response.setErro(true);
+                    response.setObjeto(e);
+                    log.error("Falha ao buscar Livro: ", response);
                 }
 
                 break;
 
             case INSERT:
                 try {
-                    CategoriaDTO categoria = (CategoriaDTO) request.getObjeto();
-                    log.info("Objeto recebido:" + "\n" + categoria);
+                    LivroDTO livro = (LivroDTO) request.getObjeto();
+                    log.info("Objeto recebido:" + "\n" + livro);
 
-                    CategoriaDTO categoriaCadastrada = categoriaService.criarCategoria(categoria);
+                    LivroDTO livroCadastrado = livroService.criarLivro(livro);
 
-                    if(categoriaCadastrada == null) {
+                    if(livroCadastrado == null) {
                         log.info("Listener: Informações incorretas");
 
                         response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
                     }else {
-                        log.info("Categoria cadastrada:" + "\n" + categoriaCadastrada);
+                        log.info("Livro cadastrada:" + "\n" + livroCadastrado);
 
-                        response.setMensagemRetorno("Categoria cadastrada com sucesso");
+                        response.setMensagemRetorno("Livro cadastrado com sucesso");
                         response.setErro(false);
-                        response.setObjeto(categoriaCadastrada);
+                        response.setObjeto(livroCadastrado);
                     }
 
                 }catch (Exception e) {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao cadastrar categoria: ", response);
+                    log.error("Falha ao cadastrar livro: ", response);
                 }
 
                 break;

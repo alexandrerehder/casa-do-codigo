@@ -1,7 +1,7 @@
 package br.com.casadocodigo.mapper;
 
 import br.com.casadocodigo.domain.Categoria;
-import br.com.casadocodigo.dto.CategoriaDTO;
+import br.com.commons.dto.CategoriaDTO;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

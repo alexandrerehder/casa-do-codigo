@@ -1,7 +1,7 @@
 package br.com.casadocodigo.mapper;
 
 import br.com.casadocodigo.domain.Estado;
-import br.com.casadocodigo.dto.EstadoDTO;
+import br.com.commons.dto.EstadoDTO;
 import org.mapstruct.Mapper;
 
 import java.util.List;

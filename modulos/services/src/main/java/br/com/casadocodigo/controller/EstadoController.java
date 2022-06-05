@@ -1,7 +1,7 @@
 package br.com.casadocodigo.controller;
 
-import br.com.casadocodigo.dto.EstadoDTO;
 import br.com.casadocodigo.service.EstadoService;
+import br.com.commons.dto.EstadoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

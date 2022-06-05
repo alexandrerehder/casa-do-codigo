@@ -1,7 +1,7 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Categoria;
-import br.com.casadocodigo.dto.CategoriaDTO;
+import br.com.commons.dto.CategoriaDTO;
 import br.com.casadocodigo.mapper.CategoriaTransformMapper;
 import br.com.casadocodigo.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

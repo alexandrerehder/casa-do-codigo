@@ -34,36 +34,18 @@ public class AmqpConfiguration {
 	@Value("${amqp.uri}")
 	private String uri;
 
-	@Value("${thanos.mail.queue}")
-	private String sendMailQueue;
+	@Value("${thanos.fila.autor.rpc.queue}")
+	private String filaAutorRpcQueue;
 
-	@Value("${thanos.fila.teste.queue}")
-	private String filaTesteQueue;
+	@Value("${thanos.fila.categoria.rpc.queue}")
+	private String filaCategoriaRpcQueue;
 
-	@Value("${thanos.fila.eventos.queue}")
-	private String filaEventosQueue;
-
-	@Value("${thanos.fila.eventos.rpc.queue}")
-	private String filaEventosRPCQueue;
-
-	@Value("${thanos.fila.perfis.rpc.queue}")
-	private String filaPerfilRPCQueue;
-
-	@Value("${thanos.fila.operacao.queue}")
-	private String filaOperacaoQueue;
-
-	@Value("${thanos.fila.teste.rpc.queue}")
-	private String filaTesteRpcQueue;
-	
-	@Value("${thanos.fila.operacao.rpc.queue}")
-	private String filaOperacaoRpcQueue;
-	
-	@Value("${thanos.fila.usuario.rpc.queue}")
-	private String filaUsuarioRpcQueue;
+	@Value("${thanos.fila.livro.rpc.queue}")
+	private String filaLivroRpcQueue;
 
 	@Value("${thanos.direct.exchange.estudos.operacao}")
 	private String directExchange;
-	
+
 	@Bean
 	public ConnectionFactory jmsConnectionFactory() {
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
@@ -91,48 +73,18 @@ public class AmqpConfiguration {
 	}
 
 	@Bean
-	public Queue sendMailQueue() {
-		return new Queue(sendMailQueue);
+	public Queue filaAutorRpcQueue() {
+		return new Queue(filaAutorRpcQueue);
 	}
 
 	@Bean
-	public Queue filaTesteQueue() {
-		return new Queue(filaTesteQueue);
+	public Queue filaCategoriaRpcQueue() {
+		return new Queue(filaCategoriaRpcQueue);
 	}
 
 	@Bean
-	public Queue filaEventosQueue() {
-		return new Queue(filaEventosQueue);
-	}
-	
-	@Bean
-	public Queue filaEventosRPCQueue() {
-		return new Queue(filaEventosRPCQueue);
-	}
-	
-	@Bean
-	public Queue filaPerfilRPCQueue() {
-		return new Queue(filaPerfilRPCQueue);
-	}
-
-	@Bean
-	public Queue filaOperacaoQueue() {
-		return new Queue(filaOperacaoQueue);
-	}
-
-	@Bean
-	public Queue filaTesteRpcQueue() {
-		return new Queue(filaTesteRpcQueue);
-	}
-	
-	@Bean
-	public Queue filaOperacaoRpcQueue() {
-		return new Queue(filaOperacaoRpcQueue);
-	}
-	
-	@Bean
-	public Queue filaUsuarioRpcQueue() {
-		return new Queue(filaUsuarioRpcQueue);
+	public Queue filaLivroRpcQueue() {
+		return new Queue(filaLivroRpcQueue);
 	}
 
 	@Bean
@@ -141,49 +93,18 @@ public class AmqpConfiguration {
 	}
 
 	@Bean
-	Binding bindingEmail() {
-		return BindingBuilder.bind(sendMailQueue()).to(exchange()).with("enviarEmail");
+	Binding bindingFilaAutorRpcQueue() {
+		return BindingBuilder.bind(filaAutorRpcQueue()).to(exchange()).with("filaAutorRpcQueue");
 	}
 
 	@Bean
-	Binding bindingFilaTesteQueue() {
-		return BindingBuilder.bind(filaTesteQueue()).to(exchange()).with("filaTesteQueue");
+	Binding bindingFilaCategoriaRpcQueue() {
+		return BindingBuilder.bind(filaCategoriaRpcQueue()).to(exchange()).with("filaCategoriaRpcQueue");
 	}
 
 	@Bean
-	Binding bindingFilaOperacaoQueue() {
-		return BindingBuilder.bind(filaOperacaoQueue()).to(exchange()).with("filaOperacaoQueue");
+	Binding bindingFilaLivroRpcQueue() {
+		return BindingBuilder.bind(filaLivroRpcQueue()).to(exchange()).with("filaLivroRpcQueue");
 	}
-
-	@Bean
-	Binding bindingfilaEventosRPCQueue() {
-		return BindingBuilder.bind(filaEventosRPCQueue()).to(exchange()).with("filaEventosRPCQueue");
-	}
-
-	@Bean
-	Binding bindingFilaEventosQueue() {
-		return BindingBuilder.bind(filaEventosQueue()).to(exchange()).with("filaEventosQueue");
-	}
-
-
-	@Bean
-	Binding bindingFilaTesteRpcQueue() {
-		return BindingBuilder.bind(filaTesteRpcQueue()).to(exchange()).with("filaTesteRpcQueue");
-	}
-	
-	@Bean
-	Binding bindingfilaPerfilRPCQueue() {
-		return BindingBuilder.bind(filaPerfilRPCQueue()).to(exchange()).with("filaPerfilRPCQueue");
-	}
-
-  @Bean
-	Binding bindingFilaOperacaoRpcQueue() {
-		return BindingBuilder.bind(filaOperacaoRpcQueue()).to(exchange()).with("filaOperacaoRpcQueue");
-	}
-	
-	@Bean
-	Binding bindingFilaUsuarioRpcQueue() {
-		return BindingBuilder.bind(filaUsuarioRpcQueue()).to(exchange()).with("filaUsuarioRpcQueue");
-	}	
 
 }

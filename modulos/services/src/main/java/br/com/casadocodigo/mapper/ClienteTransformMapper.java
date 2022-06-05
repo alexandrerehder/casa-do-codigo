@@ -1,8 +1,8 @@
 package br.com.casadocodigo.mapper;
 
 import br.com.casadocodigo.domain.Cliente;
-import br.com.casadocodigo.dto.ClienteDTO;
-import br.com.casadocodigo.dto.ClienteIdDTO;
+import br.com.commons.dto.ClienteDTO;
+import br.com.commons.dto.ClienteIdDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

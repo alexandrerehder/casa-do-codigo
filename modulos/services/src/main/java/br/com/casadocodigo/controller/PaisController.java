@@ -1,6 +1,6 @@
 package br.com.casadocodigo.controller;
 
-import br.com.casadocodigo.dto.PaisDTO;
+import br.com.commons.dto.PaisDTO;
 import br.com.casadocodigo.service.PaisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

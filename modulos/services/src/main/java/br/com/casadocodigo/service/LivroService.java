@@ -1,14 +1,15 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Livro;
-import br.com.casadocodigo.dto.LivroDTO;
-import br.com.casadocodigo.dto.LivroDetalhesDTO;
+import br.com.commons.dto.LivroDTO;
+import br.com.commons.dto.LivroDetalhesDTO;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
 import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.repository.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +28,7 @@ public class LivroService {
         return livroRepository.findAllLivros();
     }
 
+    @Transactional
     public LivroDTO criarLivro(LivroDTO dto) {
         Livro livro = mapper.toEntity(dto);
         LocalDate today = LocalDate.now();

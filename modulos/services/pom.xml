@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>br.com.casadocodigo</groupId>
-	<artifactId>casadocodigo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>casadocodigo</name>
+	<artifactId>services</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>services</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -69,7 +69,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.6.6</version>
         </dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -81,7 +80,11 @@
 			<artifactId>commons</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -119,5 +122,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

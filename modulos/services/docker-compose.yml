@@ -1,10 +1,16 @@
-version: "3"
-
+version: "3.3"
 services:
+  abbitmq:
+    restart: always  
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
   postgres_db:
+    restart: always  
     image: postgres
     container_name: casadocodigo
-    restart: always
     ports:
       - ${POSTGRES_PORT}:${POSTGRES_PORT}
     environment:
@@ -12,9 +18,14 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASS}
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
-    volumes:
-      - pgdata:/data/postgres
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
+          cpus: '0.50'
+        reservations:
+          memory: 512M
+          cpus: '0.25'
+        
+      
 
-volumes:
-  pgdata:
-    driver: local

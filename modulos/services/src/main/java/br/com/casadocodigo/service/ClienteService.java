@@ -1,8 +1,8 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Cliente;
-import br.com.casadocodigo.dto.ClienteDTO;
-import br.com.casadocodigo.dto.ClienteIdDTO;
+import br.com.commons.dto.ClienteDTO;
+import br.com.commons.dto.ClienteIdDTO;
 import br.com.casadocodigo.mapper.ClienteTransformMapper;
 import br.com.casadocodigo.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

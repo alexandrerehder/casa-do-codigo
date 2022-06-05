@@ -1,7 +1,7 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Estado;
-import br.com.casadocodigo.dto.EstadoDTO;
+import br.com.commons.dto.EstadoDTO;
 import br.com.casadocodigo.mapper.EstadoTransformMapper;
 import br.com.casadocodigo.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
