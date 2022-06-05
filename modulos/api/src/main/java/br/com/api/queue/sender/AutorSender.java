@@ -8,29 +8,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsuarioSender {
+public class AutorSender {
 
 	@Autowired
 	private RabbitTemplate template;
 
-	@Value("${casadocodigo.direct.exchange.general.queues}")
+	@Value("${thanos.direct.exchange.estudos.operacao}")
 	private String directExchange;
-	
-	public QueueResponseDTO listarAutores(QueueRequestDTO request) throws Exception {
-		QueueResponseDTO response = new QueueResponseDTO();
-		try {
-			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaUsuarioRpcQueue", request);
-			return response;
-		} catch (Exception e) {
-			response.setMensagemRetorno("Erro na request!");
-			return response;
-		}
-	}
-	
+
 	public QueueResponseDTO listarAutorPorId(QueueRequestDTO request) throws Exception {
 		QueueResponseDTO response = new QueueResponseDTO();
 		try {
-			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaUsuarioRpcQueue", request);
+			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaAutorRpcQueue", request);
 			return response;
 		} catch (Exception e) {
 			response.setMensagemRetorno("Erro ao enviar ID !");
@@ -41,23 +30,11 @@ public class UsuarioSender {
 	public QueueResponseDTO cadastrarAutor(QueueRequestDTO request) throws Exception {
 		QueueResponseDTO response = new QueueResponseDTO();
 		try {
-			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaUsuarioRpcQueue", request);
+			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaAutorRpcQueue", request);
 			return response;
 		} catch (Exception e) {
-			response.setMensagemRetorno("Erro ao enviar usuário !");
+			response.setMensagemRetorno("Erro ao enviar autor !");
 			return response;
 		}
 	}
-	
-	public QueueResponseDTO deletarAutorPorId(QueueRequestDTO request) throws Exception {
-		QueueResponseDTO response = new QueueResponseDTO();
-		try {
-			response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaUsuarioRpcQueue", request);
-			return response;
-		} catch (Exception e) {
-			response.setMensagemRetorno("Erro ao enviar ID !");
-			return response;
-		}
-	}	
-	
 }

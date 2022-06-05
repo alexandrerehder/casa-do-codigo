@@ -1,6 +1,6 @@
 package br.com.commons.dto;
 
-public enum CrudEstudosMethod {
-	INSERT, UPDATE, DELETE, LIST, GET;
+public enum CrudMethod {
+	INSERT, UPDATE, DELETE, LIST, GET, DETAIL;
 
 }

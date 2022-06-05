@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoriaSender {
+public class LivroSender {
 
     @Autowired
     private RabbitTemplate template;
@@ -16,24 +16,46 @@ public class CategoriaSender {
     @Value("${thanos.direct.exchange.estudos.operacao}")
     private String directExchange;
 
-    public QueueResponseDTO listarCategoriaPorId(QueueRequestDTO request) throws Exception {
+    public QueueResponseDTO listarLivros(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
         try {
-            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaCategoriaRpcQueue", request);
+            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaLivroRpcQueue", request);
             return response;
         } catch (Exception e) {
-            response.setMensagemRetorno("Erro ao enviar ID !");
+            response.setMensagemRetorno("Sender: Erro ao enviar requisição");
             return response;
         }
     }
 
-    public QueueResponseDTO cadastrarCategoria(QueueRequestDTO request) throws Exception {
+    public QueueResponseDTO listarLivroPorId(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
         try {
-            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaCategoriaRpcQueue", request);
+            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaLivroRpcQueue", request);
             return response;
         } catch (Exception e) {
-            response.setMensagemRetorno("Erro ao enviar categoria !");
+            response.setMensagemRetorno("Sender: Erro ao enviar ID");
+            return response;
+        }
+    }
+
+    public QueueResponseDTO listarDetalhesLivroPorId(QueueRequestDTO request) throws Exception {
+        QueueResponseDTO response = new QueueResponseDTO();
+        try {
+            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaLivroRpcQueue", request);
+            return response;
+        } catch (Exception e) {
+            response.setMensagemRetorno("Sender: Erro ao enviar ID");
+            return response;
+        }
+    }
+
+    public QueueResponseDTO cadastrarLivro(QueueRequestDTO request) throws Exception {
+        QueueResponseDTO response = new QueueResponseDTO();
+        try {
+            response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaLivroRpcQueue", request);
+            return response;
+        } catch (Exception e) {
+            response.setMensagemRetorno("Sender: Erro ao enviar livro");
             return response;
         }
     }

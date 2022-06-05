@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -30,7 +31,7 @@
         </processorPath>
         <module name="commons" />
       </profile>
-      <profile name="Annotation profile for casadocodigo" enabled="true">
+      <profile name="Annotation profile for services" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -42,7 +43,7 @@
         <module name="casadocodigo" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="api" target="1.8" />
       <module name="casadocodigo" target="1.8" />
       <module name="commons" target="1.8" />

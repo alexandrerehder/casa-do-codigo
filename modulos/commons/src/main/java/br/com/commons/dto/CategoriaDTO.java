@@ -1,4 +1,4 @@
-package br.com.casadocodigo.dto;
+package br.com.commons.dto;
 
 import lombok.Data;
 

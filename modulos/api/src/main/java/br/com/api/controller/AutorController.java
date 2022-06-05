@@ -1,9 +1,12 @@
-package br.com.casadocodigo.controller;
+package br.com.api.controller;
 
-import br.com.casadocodigo.dto.AutorDTO;
-import br.com.casadocodigo.service.AutorService;
+import br.com.api.queue.sender.AutorSender;
+import br.com.commons.dto.AutorDTO;
+import br.com.commons.dto.CrudMethod;
+import br.com.commons.dto.QueueRequestDTO;
+import br.com.commons.dto.QueueResponseDTO;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,29 +14,48 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@Log4j2
 @RestController
-@RequestMapping(value = "/autor")
+@RequestMapping(value = "/v1")
 public class AutorController {
 
     @Autowired
-    private AutorService autorService;
+    private AutorSender autorSender;
 
-    @GetMapping(value = "/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> buscarAutor(@PathVariable("id") UUID id) {
-        AutorDTO dto = autorService.buscarAutorPorId(id);
-        if(dto.getId() == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping(value = "public/autor/buscar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<QueueResponseDTO> buscarAutor(@PathVariable("id") UUID id) {
+        QueueResponseDTO response = new QueueResponseDTO();
+        try {
+            QueueRequestDTO request = new QueueRequestDTO();
+            request.setObjeto(id);
+            request.setCrudMethod(CrudMethod.GET);
+
+            response = autorSender.listarAutorPorId(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Erro ao enviar autor para o RabbitMQ", e);
+            response.setMensagemRetorno("Erro ao enviar autor para o RabbitMQ");
+            return ResponseEntity.ok(response);
         }
-        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> cadastrarAutor(@RequestBody @Valid AutorDTO dto) {
-        AutorDTO autor = autorService.criarAutor(dto);
-        if(autor == null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    @PostMapping(value = "public/autor/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<QueueResponseDTO> cadastrarAutor(@RequestBody @Valid AutorDTO dto) {
+        QueueResponseDTO response = new QueueResponseDTO();
+        try {
+            QueueRequestDTO request = new QueueRequestDTO();
+            request.setObjeto(dto);
+            request.setCrudMethod(CrudMethod.INSERT);
+
+            response = autorSender.cadastrarAutor(request);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Erro ao enviar autor para o RabbitMQ", e);
+            response.setMensagemRetorno("Erro ao enviar autor para o RabbitMQ");
+            return ResponseEntity.ok(response);
         }
-        return new ResponseEntity<>(autor, HttpStatus.OK);
     }
 }
 
