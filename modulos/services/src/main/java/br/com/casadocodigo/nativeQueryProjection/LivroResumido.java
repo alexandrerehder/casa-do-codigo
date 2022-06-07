@@ -10,5 +10,3 @@ public abstract class LivroResumido implements Serializable {
     abstract UUID getId();
     abstract String getTitulo();
 }
-
-s

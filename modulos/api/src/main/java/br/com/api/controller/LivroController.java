@@ -33,8 +33,9 @@ public class LivroController {
 
             response = livroSender.listarLivros(request);
             response.setMensagemRetorno("Controller: Tentativa de listagem");
+            response.setErro(false);
             log.info(response);
-            return ResponseEntity.ok(response);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
             response.setErro(true);
             response.setMensagemRetorno("Controller: Erro na listagem");

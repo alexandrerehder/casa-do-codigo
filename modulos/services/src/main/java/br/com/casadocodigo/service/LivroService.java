@@ -1,11 +1,11 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Livro;
-import br.com.commons.dto.LivroDTO;
-import br.com.commons.dto.LivroDetalhesDTO;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
 import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.repository.LivroRepository;
+import br.com.commons.dto.LivroDTO;
+import br.com.commons.dto.LivroDetalhesDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,9 @@ public class LivroService {
     @Autowired
     LivroTransformMapper mapper;
 
-    public List<LivroResumido> listarTodos() {
-        return livroRepository.findAllLivros();
+    public List<LivroDTO> listarTodos() {
+        List<Livro> livros = livroRepository.findAll();
+        return mapper.toDTO(livros);
     }
 
     @Transactional
@@ -36,7 +37,6 @@ public class LivroService {
         Livro livroValidado = null;
         if(today.isBefore(livro.getLancamento())) {
             livroValidado = livroRepository.save(livro);
-        } else {
         }
         return mapper.toDTO(livroValidado);
     }

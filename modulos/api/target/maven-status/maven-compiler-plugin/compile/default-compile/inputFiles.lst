@@ -1,0 +1,8 @@
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/queue/sender/CategoriaSender.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/queue/sender/AutorSender.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/queue/sender/LivroSender.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/config/AmqpConfiguration.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/controller/CategoriaController.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/controller/AutorController.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/controller/LivroController.java
+/home/rehdera/Documents/orangeTalents/casa-do-codigo/modulos/api/src/main/java/br/com/api/ApiBoot.java

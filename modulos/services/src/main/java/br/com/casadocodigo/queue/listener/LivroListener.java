@@ -1,6 +1,5 @@
 package br.com.casadocodigo.queue.listener;
 
-import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.service.LivroService;
 import br.com.commons.dto.LivroDTO;
 import br.com.commons.dto.LivroDetalhesDTO;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,20 +29,13 @@ public class LivroListener {
         switch (request.getCrudMethod()) {
 
             case LIST:
+                List<LivroDTO> listaDeLivros = new ArrayList<>();
                 try {
-                    List<LivroResumido> listaDeLivros = livroService.listarTodos();
-                    if(listaDeLivros == null) {
-                        response.setMensagemRetorno("Livros não encontrados");
-                        response.setErro(false);
-                        response.setObjeto("Empty");
-                    }else {
-                        log.info("Quantidade de livros encontrados: " + listaDeLivros.size());
-
-                        response.setMensagemRetorno("Livros encontrados");
-                        response.setErro(false);
-                        response.setObjeto(listaDeLivros);
-                    }
-
+                    listaDeLivros = livroService.listarTodos();
+                    log.info("Quantidade de livros encontrados: " + listaDeLivros.size());
+                    response.setMensagemRetorno("Livros encontrados");
+                    response.setObjeto(listaDeLivros);
+                    response.setErro(false);
                 }catch (Exception e) {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);

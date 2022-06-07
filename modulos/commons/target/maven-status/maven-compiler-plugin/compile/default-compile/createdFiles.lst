@@ -1,0 +1,12 @@
+br/com/commons/dto/LivroDTO.class
+br/com/commons/dto/PaisDTO.class
+br/com/commons/dto/LivroDetalhesDTO.class
+br/com/commons/dto/EstadoDTO.class
+br/com/commons/dto/QueueRequestDTO.class
+br/com/commons/dto/ClienteDTO.class
+br/com/commons/dto/ClienteIdDTO.class
+br/com/commons/dto/CrudMethod.class
+br/com/commons/dto/AutorDTO.class
+br/com/commons/dto/QueueResponseDTO.class
+br/com/commons/dto/AutorDetalhesDTO.class
+br/com/commons/dto/CategoriaDTO.class
