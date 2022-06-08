@@ -119,7 +119,7 @@ public class LivroListener {
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
                     }else {
-                        log.info("Livro cadastrada:" + "\n" + livroCadastrado);
+                        log.info("Livro cadastrado:" + "\n" + livroCadastrado);
 
                         response.setMensagemRetorno("Livro cadastrado com sucesso");
                         response.setErro(false);

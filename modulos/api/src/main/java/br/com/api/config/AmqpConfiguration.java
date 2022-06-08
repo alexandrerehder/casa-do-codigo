@@ -72,7 +72,6 @@ public class AmqpConfiguration {
 		return f;
 	}
 
-
 	@Bean
 	public DirectExchange exchangeOperacao() {
 		return new DirectExchange(directExchangeOperacao);
