@@ -1,8 +1,10 @@
 br/com/api/queue/sender/CategoriaSender.class
 br/com/api/controller/AutorController.class
 br/com/api/ApiBoot.class
+br/com/api/controller/PaisController.class
 br/com/api/controller/LivroController.class
 br/com/api/config/AmqpConfiguration.class
 br/com/api/queue/sender/LivroSender.class
+br/com/api/queue/sender/PaisSender.class
 br/com/api/queue/sender/AutorSender.class
 br/com/api/controller/CategoriaController.class

@@ -1,8 +1,10 @@
 package br.com.api.controller;
 
-import br.com.api.queue.sender.LivroSender;
 import br.com.api.queue.sender.PaisSender;
-import br.com.commons.dto.*;
+import br.com.commons.dto.CrudMethod;
+import br.com.commons.dto.PaisDTO;
+import br.com.commons.dto.QueueRequestDTO;
+import br.com.commons.dto.QueueResponseDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

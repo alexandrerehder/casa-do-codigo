@@ -50,20 +50,20 @@ public class LivroListener {
                     UUID id = (UUID) request.getObjeto();
                     log.info("ID recebido:" + "\n" + id);
 
-                    LivroDTO LivroPorId = livroService.buscarLivroPorId(id);
+                    LivroDTO livroPorId = livroService.buscarLivroPorId(id);
 
-                    if(LivroPorId.getId() == null) {
+                    if(livroPorId.getId() == null) {
                         log.info("Livro não encontrado");
 
                         response.setMensagemRetorno("Livro não encontrado");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
                     }else {
-                        log.info("Livro referente ao ID:" + "\n" + LivroPorId);
+                        log.info("Livro referente ao ID:" + "\n" + livroPorId);
 
                         response.setMensagemRetorno("Livro encontrado");
                         response.setErro(false);
-                        response.setObjeto(LivroPorId);
+                        response.setObjeto(livroPorId);
                     }
 
                 }catch (Exception e) {

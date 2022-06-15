@@ -46,6 +46,9 @@ public class AmqpConfiguration {
 	@Value("${thanos.fila.pais.rpc.queue}")
 	private String filaPaisRpcQueue;
 
+	@Value("${thanos.fila.estado.rpc.queue}")
+	private String filaEstadoRpcQueue;
+
 	@Value("${thanos.direct.exchange.estudos.operacao}")
 	private String directExchange;
 
@@ -55,7 +58,7 @@ public class AmqpConfiguration {
 		connectionFactory.setUsername(userName);
 		connectionFactory.setPassword(password);
 		connectionFactory.setVirtualHost(virtualHost);
-		connectionFactory.setPort(Integer.valueOf(port));
+		connectionFactory.setPort(Integer.parseInt(port));
 		connectionFactory.setUri(uri);
 		connectionFactory.setHost(host);
 		return connectionFactory;
@@ -63,8 +66,7 @@ public class AmqpConfiguration {
 
 	@Bean
 	public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-		return rabbitTemplate;
+		return new RabbitTemplate(connectionFactory);
 	}
 
 	@Bean
@@ -96,6 +98,11 @@ public class AmqpConfiguration {
 	}
 
 	@Bean
+	public Queue filaEstadoRpcQueue() {
+		return new Queue(filaEstadoRpcQueue);
+	}
+
+	@Bean
 	public DirectExchange exchange() {
 		return new DirectExchange(directExchange);
 	}
@@ -118,5 +125,10 @@ public class AmqpConfiguration {
 	@Bean
 	Binding bindingFilaPaisRpcQueue() {
 		return BindingBuilder.bind(filaPaisRpcQueue()).to(exchange()).with("filaPaisRpcQueue");
+	}
+
+	@Bean
+	Binding bindingFilaEstadoRpcQueue() {
+		return BindingBuilder.bind(filaEstadoRpcQueue()).to(exchange()).with("filaEstadoRpcQueue");
 	}
 }
