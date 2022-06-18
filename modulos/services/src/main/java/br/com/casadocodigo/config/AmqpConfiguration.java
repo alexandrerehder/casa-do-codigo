@@ -49,6 +49,9 @@ public class AmqpConfiguration {
 	@Value("${thanos.fila.estado.rpc.queue}")
 	private String filaEstadoRpcQueue;
 
+	@Value("${thanos.fila.cliente.rpc.queue}")
+	private String filaClienteRpcQueue;
+
 	@Value("${thanos.direct.exchange.estudos.operacao}")
 	private String directExchange;
 
@@ -103,6 +106,11 @@ public class AmqpConfiguration {
 	}
 
 	@Bean
+	public Queue filaClienteRpcQueue() {
+		return new Queue(filaClienteRpcQueue);
+	}
+
+	@Bean
 	public DirectExchange exchange() {
 		return new DirectExchange(directExchange);
 	}
@@ -130,5 +138,10 @@ public class AmqpConfiguration {
 	@Bean
 	Binding bindingFilaEstadoRpcQueue() {
 		return BindingBuilder.bind(filaEstadoRpcQueue()).to(exchange()).with("filaEstadoRpcQueue");
+	}
+
+	@Bean
+	Binding bindingFilaClienteRpcQueue() {
+		return BindingBuilder.bind(filaClienteRpcQueue()).to(exchange()).with("filaClienteRpcQueue");
 	}
 }
