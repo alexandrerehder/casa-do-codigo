@@ -1,6 +1,5 @@
 #!/bin/bash
 home_casadocodigo=.
-home_dir=$home_estudos/modulos
 
 echo "Iniciando Build Back"
 mvn clean install -f $home_casadocodigo/modulos/commons/pom.xml;
