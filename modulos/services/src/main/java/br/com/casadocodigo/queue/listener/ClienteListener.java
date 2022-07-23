@@ -19,7 +19,7 @@ public class ClienteListener {
     @Autowired
     private ClienteService clienteService;
 
-    @RabbitListener(queues = "${thanos.fila.cliente.rpc.queue}")
+    @RabbitListener(queues = "${ync.fila.cliente.rpc.queue}")
     public QueueResponseDTO processaEnvioLivro(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
 

@@ -13,7 +13,7 @@ public class AutorSender {
 	@Autowired
 	private RabbitTemplate template;
 
-	@Value("${thanos.direct.exchange.estudos.operacao}")
+	@Value("${ync.direct.exchange.estudos.casadocodigo}")
 	private String directExchange;
 
 	public QueueResponseDTO listarAutorPorId(QueueRequestDTO request) throws Exception {

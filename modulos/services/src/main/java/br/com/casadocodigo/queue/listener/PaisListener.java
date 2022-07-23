@@ -1,7 +1,6 @@
 package br.com.casadocodigo.queue.listener;
 
 import br.com.casadocodigo.service.PaisService;
-import br.com.commons.dto.LivroDTO;
 import br.com.commons.dto.PaisDTO;
 import br.com.commons.dto.QueueRequestDTO;
 import br.com.commons.dto.QueueResponseDTO;
@@ -22,7 +21,7 @@ public class PaisListener {
     @Autowired
     private PaisService paisService;
 
-    @RabbitListener(queues = "${thanos.fila.pais.rpc.queue}")
+    @RabbitListener(queues = "${ync.fila.pais.rpc.queue}")
     public QueueResponseDTO processaEnvioPais(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
 

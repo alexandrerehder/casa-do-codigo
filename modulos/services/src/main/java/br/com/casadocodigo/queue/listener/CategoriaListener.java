@@ -19,7 +19,7 @@ public class CategoriaListener {
     @Autowired
     private CategoriaService categoriaService;
 
-    @RabbitListener(queues = "${thanos.fila.categoria.rpc.queue}")
+    @RabbitListener(queues = "${ync.fila.categoria.rpc.queue}")
     public QueueResponseDTO processaEnvioAutor(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
 

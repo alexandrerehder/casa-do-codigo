@@ -13,7 +13,7 @@ public class CategoriaSender {
     @Autowired
     private RabbitTemplate template;
 
-    @Value("${thanos.direct.exchange.estudos.operacao}")
+    @Value("${ync.direct.exchange.estudos.casadocodigo}")
     private String directExchange;
 
     public QueueResponseDTO listarCategoriaPorId(QueueRequestDTO request) throws Exception {

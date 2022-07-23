@@ -1,17 +1,20 @@
-version: '3.7'
+version: "3.3"
 services:
-  rabbitmq:
-    restart: always  
+  abbitmq:
+    restart: always
     image: rabbitmq:3-management-alpine
-    container_name: rabbitmq-casadocodigo
+    container_name: rabbitmq
     ports:
-        - 5672:5672
-        - 15672:15672
-    deploy:
-      resources:
-        limits:
-          memory: 1024M
-          cpus: '0.50'
-        reservations:
-          memory: 512M
-          cpus: '0.25'
+      - 5672:5672
+      - 15672:15672
+  postgres_db:
+    restart: always
+    image: postgres
+    container_name: casadocodigo
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASS}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_HOST_AUTH_METHOD=scram-sha-256

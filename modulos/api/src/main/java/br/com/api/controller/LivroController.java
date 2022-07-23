@@ -32,8 +32,6 @@ public class LivroController {
             request.setCrudMethod(CrudMethod.LIST);
 
             response = livroSender.listarLivros(request);
-            response.setMensagemRetorno("Controller: Tentativa de listagem");
-            response.setErro(false);
             log.info(response);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -55,7 +53,6 @@ public class LivroController {
             request.setCrudMethod(CrudMethod.GET);
 
             response = livroSender.listarLivroPorId(request);
-            response.setMensagemRetorno("Controller: Tentativa de busca");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar livro para o RabbitMQ", e);
@@ -74,7 +71,6 @@ public class LivroController {
             request.setCrudMethod(CrudMethod.DETAIL);
 
             response = livroSender.listarDetalhesLivroPorId(request);
-            response.setMensagemRetorno("Controller: Tentativa de buscar");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar livro para o RabbitMQ", e);
@@ -93,7 +89,6 @@ public class LivroController {
             request.setCrudMethod(CrudMethod.INSERT);
 
             response = livroSender.cadastrarLivro(request);
-            response.setMensagemRetorno("Controller: Cadastrado com sucesso");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar livro para o RabbitMQ", e);

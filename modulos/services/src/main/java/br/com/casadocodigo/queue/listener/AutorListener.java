@@ -19,7 +19,7 @@ public class AutorListener {
 	@Autowired
 	private AutorService AutorService;
 
-	@RabbitListener(queues = "${thanos.fila.autor.rpc.queue}")
+	@RabbitListener(queues = "${ync.fila.autor.rpc.queue}")
 	public QueueResponseDTO processaEnvioAutor(QueueRequestDTO request) throws Exception {
 		QueueResponseDTO response = new QueueResponseDTO();
 

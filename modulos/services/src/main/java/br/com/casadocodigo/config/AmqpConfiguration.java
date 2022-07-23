@@ -34,25 +34,25 @@ public class AmqpConfiguration {
 	@Value("${amqp.uri}")
 	private String uri;
 
-	@Value("${thanos.fila.autor.rpc.queue}")
+	@Value("${ync.fila.autor.rpc.queue}")
 	private String filaAutorRpcQueue;
 
-	@Value("${thanos.fila.categoria.rpc.queue}")
+	@Value("${ync.fila.categoria.rpc.queue}")
 	private String filaCategoriaRpcQueue;
 
-	@Value("${thanos.fila.livro.rpc.queue}")
+	@Value("${ync.fila.livro.rpc.queue}")
 	private String filaLivroRpcQueue;
 
-	@Value("${thanos.fila.pais.rpc.queue}")
+	@Value("${ync.fila.pais.rpc.queue}")
 	private String filaPaisRpcQueue;
 
-	@Value("${thanos.fila.estado.rpc.queue}")
+	@Value("${ync.fila.estado.rpc.queue}")
 	private String filaEstadoRpcQueue;
 
-	@Value("${thanos.fila.cliente.rpc.queue}")
+	@Value("${ync.fila.cliente.rpc.queue}")
 	private String filaClienteRpcQueue;
 
-	@Value("${thanos.direct.exchange.estudos.operacao}")
+	@Value("${ync.direct.exchange.estudos.casadocodigo}")
 	private String directExchange;
 
 	@Bean

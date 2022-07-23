@@ -22,7 +22,7 @@ public class EstadoListener {
     @Autowired
     private EstadoService estadoService;
 
-    @RabbitListener(queues = "${thanos.fila.estado.rpc.queue}")
+    @RabbitListener(queues = "${ync.fila.estado.rpc.queue}")
     public QueueResponseDTO processaEnvioEstado(QueueRequestDTO request) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
 

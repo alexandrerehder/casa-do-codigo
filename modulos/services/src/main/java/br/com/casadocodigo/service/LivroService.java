@@ -2,7 +2,6 @@ package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Livro;
 import br.com.casadocodigo.mapper.LivroTransformMapper;
-import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.casadocodigo.repository.LivroRepository;
 import br.com.commons.dto.LivroDTO;
 import br.com.commons.dto.LivroDetalhesDTO;
@@ -32,13 +31,10 @@ public class LivroService {
     @Transactional
     public LivroDTO criarLivro(LivroDTO dto) {
         Livro livro = mapper.toEntity(dto);
-        LocalDate today = LocalDate.now();
+        Optional<Livro> livroExistente = livroRepository.findByTitulo(dto.getTitulo(), dto.getIsbn());
 
-        Livro livroValidado = null;
-        if(today.isBefore(livro.getLancamento())) {
-            livroValidado = livroRepository.save(livro);
-        }
-        return mapper.toDTO(livroValidado);
+        return livroExistente.isPresent()
+                ? null : mapper.toDTO(livroRepository.save(livro));
     }
 
     public LivroDTO buscarLivroPorId(UUID id) {

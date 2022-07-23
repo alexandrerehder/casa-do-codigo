@@ -2,7 +2,6 @@ package br.com.casadocodigo.repository;
 
 import br.com.casadocodigo.domain.Livro;
 import br.com.casadocodigo.nativeQueryProjection.LivroDetalhes;
-import br.com.casadocodigo.nativeQueryProjection.LivroResumido;
 import br.com.commons.dto.LivroDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +22,8 @@ public interface LivroRepository extends JpaRepository<Livro, UUID> {
                     "FROM Livro l " +
                     "INNER JOIN autor a ON l.autor_id = a.id ")
     Optional<LivroDetalhes> findDetalhesLivro(UUID id);
+
+    @Query("SELECT titulo FROM Livro WHERE titulo =:titulo or isbn =:isbn")
+    Optional<Livro> findByTitulo(String titulo, String isbn);
 }
 

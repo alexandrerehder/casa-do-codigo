@@ -13,7 +13,7 @@ public class LivroSender {
     @Autowired
     private RabbitTemplate template;
 
-    @Value("${thanos.direct.exchange.estudos.operacao}")
+    @Value("${ync.direct.exchange.estudos.casadocodigo}")
     private String directExchange;
 
     public QueueResponseDTO listarLivros(QueueRequestDTO request) throws Exception {

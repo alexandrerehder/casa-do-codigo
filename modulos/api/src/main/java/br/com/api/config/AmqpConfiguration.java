@@ -32,8 +32,8 @@ public class AmqpConfiguration {
 	@Value("${amqp.uri}")
 	private String uri;
 
-	@Value("${thanos.direct.exchange.estudos.operacao}")
-	private String directExchangeOperacao;
+	@Value("${ync.direct.exchange.estudos.casadocodigo}")
+	private String directExchangeCasaDoCodigo;
 
 	@Bean
 	public ConnectionFactory jmsConnectionFactory() {
@@ -41,7 +41,7 @@ public class AmqpConfiguration {
 		connectionFactory.setUsername(username);
 		connectionFactory.setPassword(password);
 		connectionFactory.setVirtualHost(virtualHost);
-		connectionFactory.setPort(Integer.valueOf(port));
+		connectionFactory.setPort(Integer.parseInt(port));
 		connectionFactory.setUri(uri);
 		connectionFactory.setHost(host);
 
@@ -73,8 +73,8 @@ public class AmqpConfiguration {
 	}
 
 	@Bean
-	public DirectExchange exchangeOperacao() {
-		return new DirectExchange(directExchangeOperacao);
+	public DirectExchange exchangeCasaDoCodigo() {
+		return new DirectExchange(directExchangeCasaDoCodigo);
 	}
 
 }
