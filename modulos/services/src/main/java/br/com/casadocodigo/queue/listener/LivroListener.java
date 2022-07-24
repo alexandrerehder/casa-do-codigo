@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -70,9 +71,10 @@ public class LivroListener {
                     if(Objects.isNull(livroPorId.getId())) {
                         log.info("Livro não encontrado");
 
-                        response.setMensagemRetorno("Livro não encontrado");
+                        response.setMensagemRetorno("Livro não encontrado. Verifique se o ID está correto.");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        break;
                     }else {
                         log.info("Livro referente ao ID:" + "\n" + livroPorId);
 
@@ -96,12 +98,13 @@ public class LivroListener {
 
                     LivroDetalhesDTO detalhesLivroPorId = livroService.buscarDetalhesLivroPorId(id);
 
-                    if(Objects.isNull(detalhesLivroPorId.getAutor())) {
+                    if(Objects.isNull(detalhesLivroPorId)) {
                         log.info("Livro não encontrado");
 
                         response.setMensagemRetorno("Livro não encontrado");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        break;
                     }else {
                         log.info("Livro referente ao ID:" + "\n" + detalhesLivroPorId);
 
