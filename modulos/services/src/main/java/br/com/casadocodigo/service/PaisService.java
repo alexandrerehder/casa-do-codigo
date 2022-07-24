@@ -26,7 +26,12 @@ public class PaisService {
 
     public PaisDTO buscarPaisPorId(UUID id) {
         Optional<Pais> pais = paisRepository.findById(id);
-        return pais.isPresent() ? mapper.toDTO(pais.get()) : null;
+        return pais.isPresent() ? mapper.toDTO(pais.get()) : new PaisDTO();
+    }
+
+    public PaisDTO buscarPaisPorNome(String paisNome) {
+        Optional<Pais> pais = paisRepository.findByName(paisNome);
+        return pais.isPresent() ? mapper.toDTO(pais.get()) : new PaisDTO();
     }
 
     public PaisDTO criarPais(PaisDTO dto) {

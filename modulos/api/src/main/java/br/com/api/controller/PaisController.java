@@ -32,8 +32,6 @@ public class PaisController {
             request.setCrudMethod(CrudMethod.LIST);
 
             response = paisSender.listarPaises(request);
-            response.setMensagemRetorno("Controller: Tentativa de listagem");
-            response.setErro(false);
             log.info(response);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -55,7 +53,6 @@ public class PaisController {
             request.setCrudMethod(CrudMethod.GET);
 
             response = paisSender.listarPaisPorId(request);
-            response.setMensagemRetorno("Controller: Tentativa de busca");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar mensagem com id do país para o RabbitMQ", e);
@@ -74,7 +71,6 @@ public class PaisController {
             request.setCrudMethod(CrudMethod.INSERT);
 
             response = paisSender.cadastrarPais(request);
-            response.setMensagemRetorno("Controller: Cadastrado com sucesso");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar país para o RabbitMQ", e);

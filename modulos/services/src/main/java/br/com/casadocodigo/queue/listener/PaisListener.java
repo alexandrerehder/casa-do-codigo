@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Log4j2
@@ -39,7 +40,7 @@ public class PaisListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Nenhum país encontrado: ", response);
+                    log.error("Nenhum país encontrado: " + response);
                 }
 
                 break;
@@ -51,7 +52,7 @@ public class PaisListener {
 
                     PaisDTO PaisPorId = paisService.buscarPaisPorId(id);
 
-                    if(PaisPorId.getId() == null) {
+                    if(Objects.isNull(PaisPorId.getPais())) {
                         log.info("Pais não encontrado");
 
                         response.setMensagemRetorno("Pais não encontrado");
@@ -69,7 +70,7 @@ public class PaisListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao buscar Pais: ", response);
+                    log.error("Falha ao buscar Pais: " + response);
                 }
 
                 break;
@@ -79,9 +80,20 @@ public class PaisListener {
                     PaisDTO pais = (PaisDTO) request.getObjeto();
                     log.info("Objeto recebido:" + "\n" + pais);
 
+                    PaisDTO paisExistente = paisService.buscarPaisPorNome(pais.getPais());
+
+                    if (Objects.nonNull(paisExistente.getPais())) {
+                        log.info("Listener: Informações incorretas. País já cadastrado");
+
+                        response.setMensagemRetorno("Falha ao cadastrar. País já cadastrado.");
+                        response.setErro(false);
+                        response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        break;
+                    }
+
                     PaisDTO paisCadastrado = paisService.criarPais(pais);
 
-                    if(paisCadastrado == null) {
+                    if(Objects.isNull(paisCadastrado)) {
                         log.info("Listener: Informações incorretas");
 
                         response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
@@ -99,7 +111,7 @@ public class PaisListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao cadastrar país: ", response);
+                    log.error("Falha ao cadastrar país: " + response);
                 }
 
                 break;

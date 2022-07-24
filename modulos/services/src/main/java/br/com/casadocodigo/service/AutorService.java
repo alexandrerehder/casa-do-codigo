@@ -29,10 +29,10 @@ public class AutorService {
         Matcher mather = pattern.matcher(autor.getEmail());
 
         AutorDTO validado = null;
-        if (!mather.find()) {
-            validado = null;
-        } else {
+        if (mather.find()) {
             validado = mapper.toDTO(autorRepository.save(autor));
+        } else {
+            validado = new AutorDTO();
         }
         return validado;
     }
@@ -40,6 +40,11 @@ public class AutorService {
     @Transactional
     public AutorDTO buscarAutorPorId(UUID id) {
         Optional<Autor> autor = autorRepository.findById(id);
+        return autor.isPresent() ? mapper.toDTO(autor.get()) : new AutorDTO();
+    }
+
+    public AutorDTO buscarAutorPorEmail(AutorDTO dto) {
+        Optional<Autor> autor = autorRepository.findByEmail(dto.getEmail());
         return autor.isPresent() ? mapper.toDTO(autor.get()) : new AutorDTO();
     }
 }

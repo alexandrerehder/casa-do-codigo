@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Log4j2
@@ -32,7 +33,7 @@ public class AutorListener {
 
 					AutorDTO autorPorId = AutorService.buscarAutorPorId(id);
 
-					if(autorPorId.getId() == null) {
+					if(Objects.isNull(autorPorId.getId())) {
 						log.info("Autor não encontrado");
 
 						response.setMensagemRetorno("Autor não encontrado");
@@ -50,7 +51,7 @@ public class AutorListener {
 					response.setMensagemRetorno(e.getMessage());
 					response.setErro(true);
 					response.setObjeto(e);
-					log.error("Falha ao buscar autor: ", response);
+					log.error("Falha ao buscar autor: " + response);
 				}
 
 				break;
@@ -60,9 +61,20 @@ public class AutorListener {
 					AutorDTO autor = (AutorDTO) request.getObjeto();
 					log.info("Objeto recebido:" + "\n" + autor);
 
+					AutorDTO autorIsExistente = AutorService.buscarAutorPorEmail(autor);
+
+					if (Objects.nonNull(autorIsExistente.getEmail())) {
+						log.info("Listener: Informações incorretas. Autor já cadastrado");
+
+						response.setMensagemRetorno("Falha ao cadastrar. Autor já cadastrado.");
+						response.setErro(false);
+						response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+						break;
+					}
+
 					AutorDTO autorCadastrado = AutorService.criarAutor(autor);
 
-					if(autorCadastrado == null) {
+					if(Objects.isNull(autorCadastrado)) {
 						log.info("Listener: Informações incorretas");
 
 						response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
@@ -80,7 +92,7 @@ public class AutorListener {
 					response.setMensagemRetorno(e.getMessage());
 					response.setErro(true);
 					response.setObjeto(e);
-					log.error("Falha ao cadastrar autor: ", response);
+					log.error("Falha ao cadastrar autor: " + response);
 				}
 
 				break;
