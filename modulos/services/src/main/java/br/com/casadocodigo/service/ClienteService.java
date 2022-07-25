@@ -1,10 +1,10 @@
 package br.com.casadocodigo.service;
 
 import br.com.casadocodigo.domain.Cliente;
-import br.com.commons.dto.ClienteDTO;
-import br.com.commons.dto.ClienteIdDTO;
 import br.com.casadocodigo.mapper.ClienteTransformMapper;
 import br.com.casadocodigo.repository.ClienteRepository;
+import br.com.commons.dto.ClienteDTO;
+import br.com.commons.dto.ClienteIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,20 +30,18 @@ public class ClienteService {
 
     public ClienteDTO buscarClientePorId(UUID id) {
         Optional<Cliente> estado = clienteRepository.findById(id);
-        return estado.isPresent() ? mapper.toDTO(estado.get()) : null;
+        return estado.isPresent() ? mapper.toDTO(estado.get()) : new ClienteDTO();
     }
 
     public ClienteIdDTO criarCliente(ClienteDTO dto) {
         Cliente cliente = mapper.toEntity(dto);
         Matcher matcher = pattern.matcher(cliente.getEmail());
 
-        ClienteIdDTO retorno = null;
-        if (!matcher.find()) {
-            retorno = null;
-        } else {
+        if (matcher.find()) {
             clienteRepository.save(cliente);
-            retorno = mapper.toIdDTO(clienteRepository.findJustId());
+            return mapper.toIdDTO(clienteRepository.findJustId());
+        } else {
+            return new ClienteIdDTO();
         }
-        return retorno;
     }
 }

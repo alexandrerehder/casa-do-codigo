@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Log4j2
@@ -20,24 +21,32 @@ public class ClienteListener {
     private ClienteService clienteService;
 
     @RabbitListener(queues = "${ync.fila.cliente.rpc.queue}")
-    public QueueResponseDTO processaEnvioLivro(QueueRequestDTO request) throws Exception {
+    public QueueResponseDTO processaEnvioLivro(QueueRequestDTO request) {
         QueueResponseDTO response = new QueueResponseDTO();
 
         switch (request.getCrudMethod()) {
 
             case LIST:
-                List<ClienteDTO> listaDeClientes = new ArrayList<>();
+                List<ClienteDTO> listaDeClientes;
                 try {
                     listaDeClientes = clienteService.listarTodos();
-                    log.info("Quantidade de clientes encontrados: " + listaDeClientes.size());
-                    response.setMensagemRetorno("Clientes encontrados");
-                    response.setObjeto(listaDeClientes);
-                    response.setErro(false);
+
+                    if (!listaDeClientes.isEmpty()) {
+                        log.info("Quantidade de clientes encontrados: " + listaDeClientes.size());
+                        response.setMensagemRetorno("Clientes encontrados");
+                        response.setObjeto(listaDeClientes);
+                        response.setErro(false);
+                    }else {
+                        log.info("Objeto vazio");
+                        response.setMensagemRetorno("Nenhum cliente encontrado");
+                        response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        response.setErro(false);
+                    }
                 }catch (Exception e) {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Nenhum cliente encontrado: ", response);
+                    log.error("Nenhum cliente encontrado: " + response);
                 }
 
                 break;
@@ -49,7 +58,7 @@ public class ClienteListener {
 
                     ClienteDTO clientePorId = clienteService.buscarClientePorId(id);
 
-                    if(clientePorId.getId() == null) {
+                    if(Objects.isNull(clientePorId.getId())) {
                         log.info("Cliente não encontrado");
 
                         response.setMensagemRetorno("Cliente não encontrado");
@@ -67,7 +76,7 @@ public class ClienteListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao buscar cliente: ", response);
+                    log.error("Falha ao buscar cliente: " + response);
                 }
 
                 break;
@@ -85,7 +94,7 @@ public class ClienteListener {
 
                     ClienteIdDTO clienteCadastrado = clienteService.criarCliente(cliente);
 
-                    if(clienteCadastrado == null) {
+                    if(Objects.isNull(clienteCadastrado.getId())) {
                         log.info("Listener: Informações incorretas");
 
                         response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
@@ -103,7 +112,7 @@ public class ClienteListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao cadastrar cliente: ", response);
+                    log.error("Falha ao cadastrar cliente: " + response);
                 }
 
                 break;
