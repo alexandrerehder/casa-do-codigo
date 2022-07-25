@@ -36,7 +36,7 @@ public class ClienteListener {
                         response.setMensagemRetorno("Clientes encontrados");
                         response.setObjeto(listaDeClientes);
                         response.setErro(false);
-                    }else {
+                    } else {
                         log.info("Objeto vazio");
                         response.setMensagemRetorno("Nenhum cliente encontrado");
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
