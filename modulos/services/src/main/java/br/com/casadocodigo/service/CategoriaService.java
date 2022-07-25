@@ -21,7 +21,8 @@ public class CategoriaService {
 
     public CategoriaDTO criarCategoria(CategoriaDTO dto) {
         Categoria categoria = mapper.toEntity(dto);
-        return mapper.toDTO(categoriaRepository.save(categoria));
+        Optional<Categoria> categoriaCadastrada = categoriaRepository.findByName(dto.getNome());
+        return categoriaCadastrada.isPresent() ? new CategoriaDTO() : mapper.toDTO(categoriaRepository.save(categoria));
     }
 
     public CategoriaDTO buscarCategoriaPorId(UUID id) {

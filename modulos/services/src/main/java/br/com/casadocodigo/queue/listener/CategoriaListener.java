@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Log4j2
@@ -32,7 +33,7 @@ public class CategoriaListener {
 
                     CategoriaDTO categoriaPorId = categoriaService.buscarCategoriaPorId(id);
 
-                    if(categoriaPorId.getId() == null) {
+                    if(Objects.isNull(categoriaPorId.getId())) {
                         log.info("Categoria não encontrada");
 
                         response.setMensagemRetorno("Categoria não encontrada");
@@ -50,7 +51,7 @@ public class CategoriaListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao buscar autor: ", response);
+                    log.error("Falha ao buscar autor: " + response);
                 }
 
                 break;
@@ -62,12 +63,13 @@ public class CategoriaListener {
 
                     CategoriaDTO categoriaCadastrada = categoriaService.criarCategoria(categoria);
 
-                    if(categoriaCadastrada == null) {
-                        log.info("Listener: Informações incorretas");
+                    if(Objects.isNull(categoriaCadastrada.getId())) {
+                        log.info("Listener: Informações incorretas. Categoria já cadastrada.");
 
-                        response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
+                        response.setMensagemRetorno("Falha ao cadastrar. Categoria já cadastrada.");
                         response.setErro(false);
                         response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        break;
                     }else {
                         log.info("Categoria cadastrada:" + "\n" + categoriaCadastrada);
 
@@ -80,7 +82,7 @@ public class CategoriaListener {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);
                     response.setObjeto(e);
-                    log.error("Falha ao cadastrar categoria: ", response);
+                    log.error("Falha ao cadastrar categoria: " + response);
                 }
 
                 break;
