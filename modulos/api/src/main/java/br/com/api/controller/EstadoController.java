@@ -1,7 +1,10 @@
 package br.com.api.controller;
 
 import br.com.api.queue.sender.EstadoSender;
-import br.com.commons.dto.*;
+import br.com.commons.dto.CrudMethod;
+import br.com.commons.dto.EstadoDTO;
+import br.com.commons.dto.QueueRequestDTO;
+import br.com.commons.dto.QueueResponseDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Log4j2
@@ -30,8 +32,6 @@ public class EstadoController {
             request.setCrudMethod(CrudMethod.LIST);
 
             response = estadoSender.listarEstados(request);
-            response.setMensagemRetorno("Controller: Tentativa de listagem");
-            response.setErro(false);
             log.info(response);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -52,14 +52,7 @@ public class EstadoController {
             request.setObjeto(id);
             request.setCrudMethod(CrudMethod.GET);
 
-            if(request.getObjeto() == null) {
-                response.setMensagemRetorno("Informe o ID do estado");
-                response.setErro(false);
-                response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
-                return ResponseEntity.badRequest().body(response);
-            }
             response = estadoSender.listarEstadoPorId(request);
-            response.setMensagemRetorno("Controller: Tentativa de busca");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar mensagem com id do país para o RabbitMQ", e);
@@ -78,7 +71,6 @@ public class EstadoController {
             request.setCrudMethod(CrudMethod.INSERT);
 
             response = estadoSender.cadastrarEstado(request);
-            response.setMensagemRetorno("Controller: Cadastrado com sucesso");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar estado para o RabbitMQ", e);

@@ -29,13 +29,22 @@ public class PaisListener {
         switch (request.getCrudMethod()) {
 
             case LIST:
-                List<PaisDTO> listaDePaises = new ArrayList<>();
+                List<PaisDTO> listaDePaises;
                 try {
                     listaDePaises = paisService.listarTodos();
-                    log.info("Quantidade de países encontrados: " + listaDePaises.size());
-                    response.setMensagemRetorno("Países encontrados");
-                    response.setObjeto(listaDePaises);
-                    response.setErro(false);
+
+                    if (!listaDePaises.isEmpty()) {
+                        log.info("Quantidade de países encontrados: " + listaDePaises.size());
+                        response.setMensagemRetorno("Países encontrados");
+                        response.setObjeto(listaDePaises);
+                        response.setErro(false);
+                    } else {
+                        log.info("Objeto vazio");
+                        response.setMensagemRetorno("Nenhum país encontrado");
+                        response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
+                        response.setErro(false);
+                    }
+
                 }catch (Exception e) {
                     response.setMensagemRetorno(e.getMessage());
                     response.setErro(true);

@@ -26,12 +26,12 @@ public class EstadoService {
 
     public EstadoDTO buscarEstadoPorId(UUID id) {
         Optional<Estado> estado = estadoRepository.findById(id);
-        return estado.isPresent() ? mapper.toDTO(estado.get()) : null;
+        return estado.isPresent() ? mapper.toDTO(estado.get()) : new EstadoDTO();
     }
 
     public EstadoDTO criarEstado(EstadoDTO dto) {
         Estado estado = mapper.toEntity(dto);
         Optional<Estado> nomeEstado = estadoRepository.findByName(estado.getEstado(), estado.getPais().getId());
-        return nomeEstado.isPresent() ? null : mapper.toDTO(estadoRepository.save(estado));
+        return nomeEstado.isPresent() ? new EstadoDTO() : mapper.toDTO(estadoRepository.save(estado));
     }
 }
