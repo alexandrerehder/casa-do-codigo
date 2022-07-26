@@ -23,15 +23,13 @@ public class ClienteController {
 
     @PostMapping(value = "/public/cliente/lista", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<QueueResponseDTO> listaTodosClientes(){
+    public ResponseEntity<QueueResponseDTO> listarTodosClientes(){
         QueueResponseDTO response = new QueueResponseDTO();
         try {
             QueueRequestDTO request = new QueueRequestDTO();
             request.setCrudMethod(CrudMethod.LIST);
 
             response = clienteSender.listarClientes(request);
-            response.setMensagemRetorno("Controller: Tentativa de listagem");
-            response.setErro(false);
             log.info(response);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
@@ -39,7 +37,7 @@ public class ClienteController {
             response.setMensagemRetorno("Controller: Erro na listagem");
             response.setObjeto(e);
             log.info(response.getMensagemRetorno(), e.getMessage());
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -52,14 +50,7 @@ public class ClienteController {
             request.setObjeto(id);
             request.setCrudMethod(CrudMethod.GET);
 
-            if (request.getObjeto() == null) {
-                response.setMensagemRetorno("Informe o ID do cliente");
-                response.setErro(false);
-                response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
-                return ResponseEntity.badRequest().body(response);
-            }
             response = clienteSender.listarClientePorId(request);
-            response.setMensagemRetorno("Controller: Tentativa de busca");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar mensagem com id do cliente para o RabbitMQ", e);
@@ -78,7 +69,6 @@ public class ClienteController {
             request.setCrudMethod(CrudMethod.INSERT);
 
             response = clienteSender.cadastrarCliente(request);
-            response.setMensagemRetorno("Controller: Cadastrado com sucesso");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             log.error("Erro ao enviar cliente para o RabbitMQ", e);

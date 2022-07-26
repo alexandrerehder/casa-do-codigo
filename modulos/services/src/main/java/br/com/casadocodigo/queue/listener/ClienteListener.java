@@ -1,14 +1,16 @@
 package br.com.casadocodigo.queue.listener;
 
 import br.com.casadocodigo.service.ClienteService;
-import br.com.commons.dto.*;
+import br.com.commons.dto.ClienteDTO;
+import br.com.commons.dto.ClienteIdDTO;
+import br.com.commons.dto.QueueRequestDTO;
+import br.com.commons.dto.QueueResponseDTO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
