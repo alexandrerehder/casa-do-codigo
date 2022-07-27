@@ -5,38 +5,33 @@
 ##
 
 <h4 align="center"> 
-	🚧 VxTel 1.0 🚧
+	🚧 Orange Talents - Casa do Código 🚧
 </h4>
 
 <p align="center">
-    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Alexandrerehder/VxTel?color=%2304D361"> 
-    <img alt="Repository size" src="https://img.shields.io/github/repo-size/Alexandrerehder/VxTel">
+    <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Alexandrerehder/casa-do-codigo"> 
+    <img alt="Repository size" src="https://img.shields.io/github/repo-size/Alexandrerehder/casa-do-codigo">
 </p>
     
 ## 💻 Sobre o projeto 
 
-💡 VxTel - Uma empresa de telefonia, especializada em chamadas de longa distância nacional, colocou um novo produto no mercado chamado FaleMais. A mesma preocupada com a transparência junto aos seus clientes, disponibilizou uma página na web onde o cliente pode calcular o valor da ligação. Ali, o cliente pode escolher os códigos das cidades de origem e destino, o tempo da ligação em minutos e qual plano FaleMais utilizará.
-
-## 💻 Interface Web
-<p align="center">
-    <img width="1180" height="500" style="border-radius: 10px" src="./Front-End/src/assets/front.png" alt="Web">
-</p>
+💡 Exercício retirado do programa de treinamento Orange Talents organizado pela Zup.
 
 ## 🛠 Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- Node.JS
-- React
-- TypeScript
+- Spring
+- RabbitMQ
 - Docker
 - Postgres
 
-## Pré-requisitos
+## 🏁 Pré-requisitos
 
 Antes de começar, é preciso ter instalado em sua máquina as seguintes ferramentas:
 
-- Node.JS
+- Java 1.8
+- Maven
 - Git
 - Docker/Compose
 - MakeFile
@@ -45,14 +40,11 @@ Antes de começar, é preciso ter instalado em sua máquina as seguintes ferrame
 
 ```bash
 # Clone este repositório
-$ git clone https://github.com/Alexandrerehder/VxTel
+$ git clone https://github.com/Alexandrerehder/casa-do-codigo
 
 # Acesse a pasta do projeto no terminal/cmd
-$ cd VxTel/Back-End
+$ cd casa-do-codigo/
 
 # Suba os containers (api, postgres, appweb)
 $ sudo make up
-
-# O servidor inciará na porta:3333 - acesse http://localhost:3333
-# A aplicação web inciará na porta:3000 - acesse http://localhost:3000
 ```
