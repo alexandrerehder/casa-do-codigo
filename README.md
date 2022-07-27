@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="400" height="400" style="border-radius: 10px" src="./modulos/commons/src/main/assets/casadocodigo.png" alt="Banner">
+    <img width="1280" height="920" style="border-radius: 10px" src="./modulos/commons/src/main/assets/casadocodigo.png" alt="Banner">
 </p>
 
 ##
