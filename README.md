@@ -48,3 +48,6 @@ $ cd casa-do-codigo/
 # Suba os containers (casadocodigo, postgres, rabbitmq)
 $ sudo make up
 ```
+
+## 📕 Documentação do projeto
+
