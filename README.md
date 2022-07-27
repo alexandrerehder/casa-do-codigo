@@ -45,6 +45,6 @@ $ git clone https://github.com/Alexandrerehder/casa-do-codigo
 # Acesse a pasta do projeto no terminal/cmd
 $ cd casa-do-codigo/
 
-# Suba os containers (api, postgres, appweb)
+# Suba os containers (casadocodigo, postgres, rabbitmq)
 $ sudo make up
 ```
