@@ -15,7 +15,7 @@
     
 ## 💻 Sobre o projeto 
 
-💡 Exercício retirado do programa de treinamento Orange Talents organizado pela Zup.
+💡 Exercício retirado do programa de treinamento Orange Talents, com intuito de atender as necessidades da Casa do Código.
 
 ## 🛠 Tecnologias
 
