@@ -74,7 +74,7 @@ public class AutorListener {
 
 					AutorDTO autorCadastrado = AutorService.criarAutor(autor);
 
-					if(Objects.isNull(autorCadastrado)) {
+					if(Objects.isNull(autorCadastrado.getId())) {
 						log.info("Listener: Informações incorretas");
 
 						response.setMensagemRetorno("Falha ao cadastrar. Verifique se as informações estão corretas");
@@ -89,9 +89,9 @@ public class AutorListener {
 					}
 
 				}catch (Exception e) {
-					response.setMensagemRetorno(e.getMessage());
+					response.setMensagemRetorno("Falha ao cadastrar autor. Verifique campos nulos ou informações incorretas/já cadastradas.");
 					response.setErro(true);
-					response.setObjeto(e);
+					response.setObjeto("Data/Horário da transação: " + LocalDateTime.now());
 					log.error("Falha ao cadastrar autor: " + response);
 				}
 

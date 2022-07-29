@@ -3,6 +3,8 @@ package br.com.api.exceptionhandler;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.amqp.support.converter.MessageConversionException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,6 +13,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.persistence.NonUniqueResultException;
+
 
 @ControllerAdvice(basePackages = "br.com.api.controller")
 public class DataControllerAdvice {

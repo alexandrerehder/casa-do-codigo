@@ -5,6 +5,7 @@ import br.com.casadocodigo.mapper.ClienteTransformMapper;
 import br.com.casadocodigo.repository.ClienteRepository;
 import br.com.commons.dto.ClienteDTO;
 import br.com.commons.dto.ClienteIdDTO;
+import org.springframework.amqp.support.converter.MessageConversionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +30,19 @@ public class ClienteService {
     }
 
     public ClienteDTO buscarClientePorId(UUID id) {
-        Optional<Cliente> estado = clienteRepository.findById(id);
-        return estado.isPresent() ? mapper.toDTO(estado.get()) : new ClienteDTO();
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+        return cliente.isPresent() ? mapper.toDTO(cliente.get()) : new ClienteDTO();
     }
 
-    public ClienteIdDTO criarCliente(ClienteDTO dto) {
+    public ClienteDTO criarCliente(ClienteDTO dto) {
         Cliente cliente = mapper.toEntity(dto);
+
         Matcher matcher = pattern.matcher(cliente.getEmail());
 
         if (matcher.find()) {
-            clienteRepository.save(cliente);
-            return mapper.toIdDTO(clienteRepository.findJustId());
+                return mapper.toDTO(clienteRepository.save(cliente));
         } else {
-            return new ClienteIdDTO();
+            return new ClienteDTO();
         }
     }
 }

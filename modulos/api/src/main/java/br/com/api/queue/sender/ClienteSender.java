@@ -44,7 +44,8 @@ public class ClienteSender {
             response = (QueueResponseDTO) template.convertSendAndReceive(directExchange, "filaClienteRpcQueue", request);
             return response;
         } catch (Exception e) {
-            response.setMensagemRetorno("Sender: Erro ao enviar cliente");
+            response.setMensagemRetorno("Sender: Erro ao enviar cliente. Verifique se o preenchimento foi feito de maneira correta, sem campos nulos ou documento/email já existente.");
+            response.setErro(true);
             return response;
         }
     }

@@ -23,7 +23,7 @@ public class ClienteController {
 
     @PostMapping(value = "/public/cliente/lista", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<QueueResponseDTO> listarTodosClientes(){
+    public ResponseEntity<QueueResponseDTO> listarTodosClientes() {
         QueueResponseDTO response = new QueueResponseDTO();
         try {
             QueueRequestDTO request = new QueueRequestDTO();
@@ -63,7 +63,7 @@ public class ClienteController {
     @CrossOrigin
     public ResponseEntity<QueueResponseDTO> cadastrarCliente(@Valid @RequestBody ClienteDTO dto) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
-
+        try {
             QueueRequestDTO request = new QueueRequestDTO();
             request.setObjeto(dto);
             request.setCrudMethod(CrudMethod.INSERT);
@@ -71,5 +71,10 @@ public class ClienteController {
             response = clienteSender.cadastrarCliente(request);
             return ResponseEntity.ok(response);
 
+        } catch (Exception e) {
+            log.error("Erro ao enviar mensagem com id do cliente para o RabbitMQ", e);
+            response.setMensagemRetorno("Erro ao enviar mensagem com id do cliente para o RabbitMQ");
+            return ResponseEntity.ok(response);
+        }
     }
 }

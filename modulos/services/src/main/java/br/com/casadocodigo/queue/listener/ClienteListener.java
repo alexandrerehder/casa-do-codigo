@@ -94,7 +94,7 @@ public class ClienteListener {
                     ClienteDTO cliente = (ClienteDTO) request.getObjeto();
                     log.info("Objeto recebido:" + "\n" + cliente);
 
-                    ClienteIdDTO clienteCadastrado = clienteService.criarCliente(cliente);
+                    ClienteDTO clienteCadastrado = clienteService.criarCliente(cliente);
 
                     if(Objects.isNull(clienteCadastrado.getId())) {
                         log.info("Listener: Informações incorretas");
