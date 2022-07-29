@@ -61,19 +61,15 @@ public class ClienteController {
 
     @PostMapping(value = "public/cliente/cadastrar", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<QueueResponseDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO dto) {
+    public ResponseEntity<QueueResponseDTO> cadastrarCliente(@Valid @RequestBody ClienteDTO dto) throws Exception {
         QueueResponseDTO response = new QueueResponseDTO();
-        try {
+
             QueueRequestDTO request = new QueueRequestDTO();
             request.setObjeto(dto);
             request.setCrudMethod(CrudMethod.INSERT);
 
             response = clienteSender.cadastrarCliente(request);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            log.error("Erro ao enviar cliente para o RabbitMQ", e);
-            response.setMensagemRetorno("Erro ao enviar cliente para o RabbitMQ");
-            return ResponseEntity.ok(response);
-        }
+
     }
 }
