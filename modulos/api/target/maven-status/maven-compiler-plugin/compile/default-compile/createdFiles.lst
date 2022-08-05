@@ -1,5 +1,6 @@
 br/com/api/controller/AutorController.class
 br/com/api/queue/sender/ClienteSender.class
+br/com/api/exceptionhandler/DataControllerAdvice.class
 br/com/api/controller/PaisController.class
 br/com/api/controller/LivroController.class
 br/com/api/queue/sender/PaisSender.class
@@ -12,3 +13,4 @@ br/com/api/queue/sender/EstadoSender.class
 br/com/api/config/AmqpConfiguration.class
 br/com/api/controller/ClienteController.class
 br/com/api/queue/sender/LivroSender.class
+br/com/api/exceptionhandler/MessageExceptionHandler.class

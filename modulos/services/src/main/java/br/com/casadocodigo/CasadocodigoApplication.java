@@ -9,5 +9,4 @@ public class CasadocodigoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CasadocodigoApplication.class, args);
 	}
-
 }

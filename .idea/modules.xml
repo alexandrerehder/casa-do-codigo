@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/modulos/api/api.iml" filepath="$PROJECT_DIR$/modulos/api/api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/casa-do-codigo.iml" filepath="$PROJECT_DIR$/.idea/casa-do-codigo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modulos/commons/commons.iml" filepath="$PROJECT_DIR$/modulos/commons/commons.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modulos/services/services.iml" filepath="$PROJECT_DIR$/modulos/services/services.iml" />
+    </modules>
+  </component>
+</project>

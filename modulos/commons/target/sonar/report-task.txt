@@ -1,6 +1,0 @@
-projectKey=commons
-serverUrl=http://localhost:9000
-serverVersion=8.9.9.56886
-dashboardUrl=http://localhost:9000/dashboard?id=commons
-ceTaskId=AYGBwUgbiNKX056U3lcE
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AYGBwUgbiNKX056U3lcE

@@ -31,8 +31,7 @@ public class AutorController {
             request.setObjeto(id);
             request.setCrudMethod(CrudMethod.GET);
 
-            response = autorSender.listarAutorPorId(request);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(autorSender.listarAutorPorId(request));
         } catch (Exception e) {
             log.error("Erro ao enviar autor para o RabbitMQ", e);
             response.setMensagemRetorno("Erro ao enviar autor para o RabbitMQ");
@@ -49,8 +48,7 @@ public class AutorController {
             request.setObjeto(dto);
             request.setCrudMethod(CrudMethod.INSERT);
 
-            response = autorSender.cadastrarAutor(request);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(autorSender.cadastrarAutor(request));
         } catch (Exception e) {
             log.error("Erro ao enviar autor para o RabbitMQ", e);
             response.setMensagemRetorno("Erro ao enviar autor para o RabbitMQ");

@@ -18,7 +18,7 @@ import java.util.UUID;
 public class AutorListener {
 
 	@Autowired
-	private AutorService AutorService;
+	private AutorService autorService;
 
 	@RabbitListener(queues = "${ync.fila.autor.rpc.queue}")
 	public QueueResponseDTO processaEnvioAutor(QueueRequestDTO request) throws Exception {
@@ -31,7 +31,7 @@ public class AutorListener {
 					UUID id = (UUID) request.getObjeto();
 					log.info("ID recebido:" + "\n" + id);
 
-					AutorDTO autorPorId = AutorService.buscarAutorPorId(id);
+					AutorDTO autorPorId = autorService.buscarAutorPorId(id);
 
 					if(Objects.isNull(autorPorId.getId())) {
 						log.info("Autor não encontrado");
@@ -61,7 +61,7 @@ public class AutorListener {
 					AutorDTO autor = (AutorDTO) request.getObjeto();
 					log.info("Objeto recebido:" + "\n" + autor);
 
-					AutorDTO autorIsExistente = AutorService.buscarAutorPorEmail(autor);
+					AutorDTO autorIsExistente = autorService.buscarAutorPorEmail(autor);
 
 					if (Objects.nonNull(autorIsExistente.getEmail())) {
 						log.info("Listener: Informações incorretas. Autor já cadastrado");
@@ -72,7 +72,7 @@ public class AutorListener {
 						break;
 					}
 
-					AutorDTO autorCadastrado = AutorService.criarAutor(autor);
+					AutorDTO autorCadastrado = autorService.criarAutor(autor);
 
 					if(Objects.isNull(autorCadastrado.getId())) {
 						log.info("Listener: Informações incorretas");
