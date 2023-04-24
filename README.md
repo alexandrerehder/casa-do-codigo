@@ -21,7 +21,7 @@
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- Spring
+- Spring Boot
 - RabbitMQ
 - Docker
 - Postgres
