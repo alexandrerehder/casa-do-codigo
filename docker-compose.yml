@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  abbitmq:
+  rabbitmq:
     restart: always
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
